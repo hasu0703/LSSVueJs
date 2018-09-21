@@ -1,0 +1,23 @@
+
+body{
+    background:#eee;
+}
+
+.cell{
+    font-size:0.8em;
+    border:1px solid #999;
+}
+
+.cell select{
+    width:100%;
+}
+.tab{
+    display:grid;
+    grid-template-columns: repeat(50, 60px);
+    grid-template-rows: repeat(50,20px);
+
+}
+
+.hidden{
+    display:none;
+}

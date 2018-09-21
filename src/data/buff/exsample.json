@@ -1,0 +1,7 @@
+{
+"name":"BuffName",
+"group":"同一グループ内は選択肢一個",
+"type":"(Select|checkbox)",
+"value":[select]
+
+}
