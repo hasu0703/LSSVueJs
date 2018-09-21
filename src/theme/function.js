@@ -314,3 +314,35 @@ function minasToZero(x) {
         return 0;
     }
 }
+
+function equip_option(i) {
+
+    var equip = ap.equip[EQ_LIST[i]];
+
+    var lists = {};
+    for (e in equip) {
+        var re = new RegExp("(ALL|" + ap.cell["job"] + ")");
+        if (equip[e]["装備"].match(re)) {
+            lists[equip[e].name] = equip[e].name;
+        }
+
+
+    }
+
+    update_option("equip" + i + "_name", lists);
+
+}
+
+function equip_update(i) {
+    var equip = ap.equip[EQ_LIST[i]];
+    var eq_name = ap.cell["equip" + i + "_name"];
+    console.log(eq_name);
+    var eq_data = {};
+    for (e in equip) {
+        if (equip[e].name == eq_name) {
+            eq_data = equip[e];
+        }
+    }
+    console.log(eq_data);
+    ap.cell["equip" + i + "_ac"] = eq_data.AC;
+}

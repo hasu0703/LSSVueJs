@@ -66,14 +66,24 @@ var SetThemeID = {
     "cell_1_8_11":{"id":"eq_hp_title","type":"text","value":"HP"},
     "cell_1_8_12":{"id":"eq_mp_title","type":"text","value":"MP"},
     
-    "cell_1_9_1":{"id":"eq_weapon_title","type":"text","value":"武器"},
-    "cell_1_10_1":{"id":"eq_weapon_title","type":"text","value":"武器"},
-    "cell_1_11_1":{"id":"eq_weapon_title","type":"text","value":"武器"},
-    "cell_1_12_1":{"id":"eq_weapon_title","type":"text","value":"武器"},
-    "cell_1_13_1":{"id":"eq_weapon_title","type":"text","value":"武器"},
-    "cell_1_14_1":{"id":"eq_weapon_title","type":"text","value":"武器"},
-    "cell_1_15_1":{"id":"eq_weapon_title","type":"text","value":"武器"},
-    "cell_1_16_1":{"id":"eq_weapon_title","type":"text","value":"武器"},
-    "cell_1_17_1":{"id":"eq_weapon_title","type":"text","value":"武器"},
+    "cell_1_9_1":{"id":"equip1_title","type":"text","value":"武器"},
+    "cell_1_10_1":{"id":"equip2_title","type":"text","value":"武器"},
+    "cell_1_11_1":{"id":"equip3_title","type":"text","value":"武器"},
+    "cell_1_12_1":{"id":"equip4_title","type":"text","value":"武器"},
+    "cell_1_13_1":{"id":"equip5_title","type":"text","value":"武器"},
+    "cell_1_14_1":{"id":"equip6_title","type":"text","value":"武器"},
+    "cell_1_15_1":{"id":"equip7_title","type":"text","value":"武器"},
+    "cell_1_16_1":{"id":"equip8_title","type":"text","value":"武器"},
+    "cell_1_17_1":{"id":"equip9_title","type":"text","value":"武器"},
+
 
 }
+
+for(var i=0;i<22;i++){
+    var v = i+9;
+
+    SetThemeID["cell_1_" + v + "_2"] = {"id":"equip"+i+"_name","type":"select"}
+    SetThemeID["cell_1_" + v + "_3"] = {"id":"equip"+i+"_enchant","type":"select"}
+    SetThemeID["cell_1_" + v + "_4"] = {"id":"equip"+i+"_ac","type":"text"}
+}
+

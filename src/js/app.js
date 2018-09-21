@@ -111,7 +111,11 @@ function uiupdate() {
     update_status_sum(STATUSLIST);
     console.log("change");
 
-
+    for(i in EQ_LIST){
+        equip_option(i);
+        equip_update(i);
+    }
+    
 
 
 
