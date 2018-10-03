@@ -12,21 +12,18 @@
   <title>Document</title>
 </head>
 <body>
-  <div id="app">
+  <div id="app" :style="gridStyle()">
+<template v-for="item in tableset()">
+<div :id="cellid(item.item)" v-if="isview()" :class="cellclass(item)">
+<span :id="cellid(item.item) + '_text'" v-if="celltype(item.item)=='text'">{{celltext(item.item)}}</span>
+<span :id="cellid(item.item) + '_hidden'" v-if="celltype(item.item)=='hidden'" class="hidden">{{celltext(item.item)}}</span>
+<select :id="cellid(item.item) + '_select'" v-if="celltype(item.item)=='select'" v-model="cell[cellid(item.item)]">
+<option v-for="(key,val) in celloption(item.item)" :value="val">{{key}}</option>
+</select>
+</div>
+</template>  
 
-    <div v-for="tid in tab" :id="'tab' + tid" v-show="tid==1" class="tab">
-      <template v-for="rid in row">
-        <template v-for="cid in col">
-          <div :id="cellid(tid,rid,cid)" :class="cellclass(tid,rid,cid)">
-            <span :id="cellid(tid,rid,cid) + '_text'" v-if="celltype(tid,rid,cid)=='text'">{{celltext(tid,rid,cid)}}</span>
-            <span :id="cellid(tid,rid,cid) + '_hidden'" v-if="celltype(tid,rid,cid)=='hidden'" class="hidden">{{celltext(tid,rid,cid)}}</span>
-            <select :id="cellid(tid,rid,cid) + '_select'" v-if="celltype(tid,rid,cid)=='select'" v-model="cell[cellid(tid,rid,cid)]">
-              <option v-for="(key,val) in celloption(tid,rid,cid)" :value="val">{{key}}</option>
-            </select>
-          </div>
-        </template>
-      </template>
-    </div>
+
    
   </div>
   <div id="main">

@@ -2,69 +2,130 @@ var celldata = {};
 var optiondata = {};
 var _is = {}
 
-for (i in SetThemeID) {
-    $("." + i).attr("id", SetThemeID[i].id);
-    $("." + i).html("{{cell." + SetThemeID[i].id + "}}");
-    celldata[SetThemeID[i].id] = SetThemeID[i].value;
-    if (SetThemeID[i].type == "select") {
-        optiondata[SetThemeID[i].id] = {}
-    }
+
+for(i in SetThemeData){
+
+    celldata[SetThemeData[i].id] = SetThemeData[i].value;
+    if (SetThemeData[i].type == "select") {
+        optiondata[SetThemeData[i].id] = {}
+    }   
 }
+
 var ap = new Vue({
     el: "#app",
     data: {
-        row: 50,
-        col: 50,
+        row: 30,
+        col: 20,
         tab: 5,
+        view: true,
         cell: celldata,
         equip: equipjson,
         option: optiondata
     },
     methods: {
+        tableset: function () {
+            var tbl = [];
+            for (r = 0; r < this.row; r++) {
+                for (c = 0; c < this.col; c++) {
+                    tbl.push({
+                        "row": r,
+                        "col": c,
+                        "tab":1,
+                        "item": this.getclassData(c, r)
+                    });
+                }
+            }
+            return tbl;
+        },
+        gridStyle: function () {
+            return {
+                "display":"grid",
+                "grid-template-columns": "repeat(" + this.col + ",60px)",
+                "grid-template-rows": "repeat(" + this.row + ",20px)"
+            }
+        },
+        getclassData: function (r, c) {
+            var ret = SetThemeData.filter(function (data) {
+                return data.row == this.row && data.col == this.col
+            }, {
+                "col": c,
+                "row": r
+            });
+            if (ret[0]) {
+                return ret[0];
+            }
+        },
+        cellclass: function (item) {
+            var span = "";
+            if (item.item) {
+                if (item.item.span > 0) {
+                    span = "span_" + item.item.span;
+                    this.view = false;
+                }
+            }
+
+            return 'cell row_' + item.row + ' col_' + item.col + ' ' + span;
+        },
+        isview:function(){
+            if(this.view){
+                return true;
+            }
+            this.view = true;
+            return false;
+        },
         inputdata: function (id) {
             console.log(this);
         },
-        cellclass: function (tid, rid, cid) {
-            return 'cell t' + tid + 'row_' + rid + ' t' + tid + 'col_' + cid + ' cell_' + tid + '_' + rid + '_' + cid;
-        },
-        cellid: function (tid, rid, cid) {
-            var key = "cell_" + tid + "_" + rid + "_" + cid;
-            if (SetThemeID[key]) {
-                if (SetThemeID[key].id) {
-                    return SetThemeID[key].id;
-                }
+
+        cellid: function (item) {
+            if(item){
+                return item.id;
             }
+            return "";
+
         },
-        celltext: function (tid, rid, cid) {
-            var key = "cell_" + tid + "_" + rid + "_" + cid;
-            if (SetThemeID[key]) {
-                if (SetThemeID[key].type == "text") {
-                    return this.cell[SetThemeID[key].id];
+        celltext: function (item) {            
+            if(item){
+                var data = this.gecellbyid(item.id);
+                if (data) {
+                    if(data.type == "text"){
+                        return this.cell[data.id];
+                    }
                 }
             }
             return "";
         },
-        celltype: function (tid, rid, cid) {
-            var key = "cell_" + tid + "_" + rid + "_" + cid;
-            if (SetThemeID[key]) {
-                return SetThemeID[key].type;
+        gecellbyid:function(id){
 
+            var ret = SetThemeData.filter(function (data) {
+                return data.id == this.id
+            }, {
+                "id": id,
+            });
+            return ret[0];
+        },
+        celltype: function (item) {
+            if(item){
+                var data = this.gecellbyid(item.id);
+                if (data) {
+                    return data.type;
+    
+                }
             }
             return false;
         },
-        celloption: function (tid, rid, cid) {
-            var kid = "";
-            var key = "cell_" + tid + "_" + rid + "_" + cid;
-            if (SetThemeID[key]) {
-                kid = SetThemeID[key].id;
+        celloption: function (item) {
+            if(item){
+                var data = this.gecellbyid(item.id);
+                if (data) {
+                    if(this.option[data.id]){
+                        return this.option[data.id];
+                    }else{
+                        return {};
+                    }
+                }
             }
 
-            if (this.option[kid]) {
-                return this.option[kid];
-
-            } else {
-                return {};
-            }
         }
 
     },
@@ -111,11 +172,7 @@ function uiupdate() {
     update_status_sum(STATUSLIST);
     console.log("change");
 
-    for(i in EQ_LIST){
-        equip_option(i);
-        equip_update(i);
-    }
-    
+
 
 
 
