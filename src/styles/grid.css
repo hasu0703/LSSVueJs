@@ -21,3 +21,7 @@ body{
 .hidden{
     display:none;
 }
+
+.span_2{
+    grid-column: span 2;
+}

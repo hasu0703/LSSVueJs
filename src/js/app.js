@@ -16,6 +16,7 @@ var ap = new Vue({
     data: {
         row: 30,
         col: 20,
+        showcellno:false,
         tab: 5,
         view: true,
         cell: celldata,
@@ -31,7 +32,7 @@ var ap = new Vue({
                         "row": r,
                         "col": c,
                         "tab":1,
-                        "item": this.getclassData(c, r)
+                        "item": this.getclassData(r,c)
                     });
                 }
             }

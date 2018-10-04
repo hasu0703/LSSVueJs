@@ -20,6 +20,7 @@
 <select :id="cellid(item.item) + '_select'" v-if="celltype(item.item)=='select'" v-model="cell[cellid(item.item)]">
 <option v-for="(key,val) in celloption(item.item)" :value="val">{{key}}</option>
 </select>
+<span v-show="showcellno">{{item.row}}-{{item.col}}</span>
 </div>
 </template>  
 
