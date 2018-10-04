@@ -1,7 +1,7 @@
 var celldata = {};
 var optiondata = {};
 var _is = {}
-
+var viewflag = true;
 
 for(i in SetThemeData){
 
@@ -61,17 +61,19 @@ var ap = new Vue({
             if (item.item) {
                 if (item.item.span > 0) {
                     span = "span_" + item.item.span;
-                    this.view = false;
+                    viewflag = false;
+                   // this.view = false;
                 }
             }
 
             return 'cell row_' + item.row + ' col_' + item.col + ' ' + span;
         },
         isview:function(){
-            if(this.view){
+            if(viewflag){
                 return true;
             }
-            this.view = true;
+            //this.view = true;
+            viewflag = true;
             return false;
         },
         inputdata: function (id) {
@@ -174,7 +176,7 @@ function uiupdate() {
     console.log("change");
 
 
-
+    update_equip();
 
 
     calcHPMP();

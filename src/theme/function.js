@@ -33,6 +33,9 @@ function update_option(key, array) {
     if (!ap.cell[key]) {
         ap.cell[key] = Object.keys(ap.option[key]).shift()
     }
+    if(ap.option[key][ap.cell[key]] == null){
+        ap.cell[key] = Object.keys(ap.option[key]).shift();
+    }
 }
 
 /**
@@ -312,5 +315,45 @@ function minasToZero(x) {
         return x;
     } else {
         return 0;
+    }
+}
+
+/**
+ * データを更新
+ */
+function update_equip(){
+    for(var i in EQ_LIST){
+        var data = ap.equip[EQ_LIST[i]].filter(function (data) {
+            var regexp = new RegExp("(ALL|"+ this.job +")");
+  
+            return data["装備"].match(regexp);   
+        }, {
+            "job": ap.cell.job,
+        });
+        /*
+        var ret = data.map(obj =>{
+            return obj.name;
+        });
+*/
+        var ret = {};
+        for(var v in data){
+            if(data[v].name){
+                ret[data[v].name] = data[v].name;
+            }
+            
+        }
+
+        update_option("equip_name"+i,ret);
+
+
+        var eq_data =  ap.equip[EQ_LIST[i]].filter(function (d) { 
+
+            return d["name"] == this.itemname; 
+        }, {
+            "itemname": ap.cell["equip_name"+i],
+        });
+
+        ap.cell["equip_ac"+i] = eq_data.AC;
+        
     }
 }
