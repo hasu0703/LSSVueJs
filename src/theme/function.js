@@ -318,11 +318,15 @@ function minasToZero(x) {
     }
 }
 
+function arraycount(){
+
+}
 /**
  * データを更新
  */
 function update_equip(){
     for(var i in EQ_LIST){
+
         var data = ap.equip[EQ_LIST[i]].filter(function (data) {
             var regexp = new RegExp("(ALL|"+ this.job +")");
   
@@ -330,11 +334,7 @@ function update_equip(){
         }, {
             "job": ap.cell.job,
         });
-        /*
-        var ret = data.map(obj =>{
-            return obj.name;
-        });
-*/
+
         var ret = {};
         for(var v in data){
             if(data[v].name){
@@ -352,8 +352,24 @@ function update_equip(){
         }, {
             "itemname": ap.cell["equip_name"+i],
         });
+        if(eq_data[0]){
+            
+/*
+            if(ap.cell["equip_enchant"+i] == null && parseInt(eq_data[0]["安全"]) > 0){         
+                ap.cell["equip_enchant"+i] = parseInt(eq_data[0]["安全"]);
+            }*/
+            update_option("equip_enchant"+i, [...Array(parseInt(eq_data[0]["強化限界"])).keys()]);
+            var AC = "";
+            if(eq_data[0].AC){
+                AC = parseInt(eq_data[0].AC);
+                if(ACCESSORY_LIST.indexOf(eq_data[0].type)==-1){
+                    AC -= parseInt(ap.cell["equip_enchant"+i]);
+                }
 
-        ap.cell["equip_ac"+i] = eq_data.AC;
+            }
+            ap.cell["equip_ac"+i] = AC;
+        }
         
+   //     console.log(eq_data[0]["安全"]);
     }
 }

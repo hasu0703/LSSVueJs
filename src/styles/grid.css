@@ -13,8 +13,7 @@ body{
 }
 .tab{
     display:grid;
-    grid-template-columns: repeat(50, 60px);
-    grid-template-rows: repeat(50,20px);
+
 
 }
 
@@ -24,4 +23,10 @@ body{
 
 .span_2{
     grid-column: span 2;
+}
+.span_3{
+    grid-column: span 3;
+}
+.span_4{
+    grid-column: span 4;
 }

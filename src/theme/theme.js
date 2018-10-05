@@ -14,7 +14,7 @@ var SetLevelData = [
 ];
 SetThemeData = SetThemeData.concat(SetLevelData);
 r=1;
-c=4;
+c=5;
 var SetStatusData = [
     {"tab":1,"row":r,"col":c+1,"id":"str_title","type":"text","value":"str"},
     {"tab":1,"row":r,"col":c+2,"id":"dex_title","type":"text","value":"dex"},
@@ -60,7 +60,7 @@ var SetStatusData = [
 ]
 SetThemeData = SetThemeData.concat(SetStatusData);
 r=1;
-c=11;
+c=13;
 var SetHPMPData = [
     {"tab":1,"row":r,"col":c,"id":"hp_title","type":"text","value":"HP"},
     {"tab":1,"row":r,"col":c+1,"id":"st_hp","type":"text","value":0},
@@ -71,18 +71,19 @@ SetThemeData = SetThemeData.concat(SetHPMPData);
 r = 8;
 c = 0;
 var SetEqData = [
-    {"tab":1,"row":r,"col":c,"span":2,"id":"eq_name_title","type":"text","value":""},
-    {"tab":1,"row":r,"col":c+2,"span":2,"id":"eq_name_title","type":"text","value":"名前"},
-    {"tab":1,"row":r,"col":c+3,"id":"eq_enchant_title","type":"text","value":"強化"},
-    {"tab":1,"row":r,"col":c+4,"id":"eq_ac_title","type":"text","value":"AC"},
-    {"tab":1,"row":r,"col":c+5,"id":"eq_str_title","type":"text","value":"str"},
-    {"tab":1,"row":r,"col":c+6,"id":"eq_dex_title","type":"text","value":"dex"},
-    {"tab":1,"row":r,"col":c+7,"id":"eq_con_title","type":"text","value":"con"},
-    {"tab":1,"row":r,"col":c+8,"id":"eq_int_title","type":"text","value":"int"},
-    {"tab":1,"row":r,"col":c+9,"id":"eq_wis_title","type":"text","value":"wis"},
-    {"tab":1,"row":r,"col":c+10,"id":"eq_cha_title","type":"text","value":"cha"},
-    {"tab":1,"row":r,"col":c+11,"id":"eq_hp_title","type":"text","value":"HP"},
-    {"tab":1,"row":r,"col":c+12,"id":"eq_mp_title","type":"text","value":"MP"},
+    {"tab":1,"row":r,"col":c,"span":2,"id":"eq_name_span","type":"text","value":""},
+    {"tab":1,"row":r,"col":c+2,"id":"eq_enchant_title","type":"text","value":"強化"},
+    {"tab":1,"row":r,"col":c+3,"span":4,"id":"eq_name_title","type":"text","value":"名前"},
+    {"tab":1,"row":r,"col":c+7,"id":"eq_ac_title","type":"text","value":"AC"},
+    /*
+    {"tab":1,"row":r,"col":c+7,"id":"eq_str_title","type":"text","value":"str"},
+    {"tab":1,"row":r,"col":c+8,"id":"eq_dex_title","type":"text","value":"dex"},
+    {"tab":1,"row":r,"col":c+9,"id":"eq_con_title","type":"text","value":"con"},
+    {"tab":1,"row":r,"col":c+10,"id":"eq_int_title","type":"text","value":"int"},
+    {"tab":1,"row":r,"col":c+11,"id":"eq_wis_title","type":"text","value":"wis"},
+    {"tab":1,"row":r,"col":c+12,"id":"eq_cha_title","type":"text","value":"cha"},
+    {"tab":1,"row":r,"col":c+13,"id":"eq_hp_title","type":"text","value":"HP"},
+    {"tab":1,"row":r,"col":c+14,"id":"eq_mp_title","type":"text","value":"MP"},*/
 ];
 SetThemeData = SetThemeData.concat(SetEqData);
 
@@ -90,8 +91,9 @@ for(var i in EQ_LIST){
     var row = 9 + parseInt(i);
     c=0;
     SetThemeData.push({"tab":1,"row":row,"col":c,"id":"equip_title"+i,"type":"text","value":EQ_LIST[i],"span":2});
-    SetThemeData.push({"tab":1,"row":row,"col":c+2,"id":"equip_name"+i,"type":"select","span":2});
-    SetThemeData.push({"tab":1,"row":row,"col":c+4,"id":"equip_ac"+i,"type":"text","value":""});
+    SetThemeData.push({"tab":1,"row":row,"col":c+2,"id":"equip_enchant"+i,"type":"select"});
+    SetThemeData.push({"tab":1,"row":row,"col":c+3,"id":"equip_name"+i,"type":"select","span":4});
+    SetThemeData.push({"tab":1,"row":row,"col":c+7,"id":"equip_ac"+i,"type":"text","value":""});
 }
 /*
 for(var i = 9;i<=17;i++){

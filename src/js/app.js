@@ -2,6 +2,7 @@ var celldata = {};
 var optiondata = {};
 var _is = {}
 var viewflag = true;
+var spancount = 0;
 
 for(i in SetThemeData){
 
@@ -14,8 +15,8 @@ for(i in SetThemeData){
 var ap = new Vue({
     el: "#app",
     data: {
-        row: 30,
-        col: 20,
+        row: 40,
+        col: 16,
         showcellno:false,
         tab: 5,
         view: true,
@@ -62,19 +63,26 @@ var ap = new Vue({
                 if (item.item.span > 0) {
                     span = "span_" + item.item.span;
                     viewflag = false;
-                   // this.view = false;
+                    spancount = item.item.span - 1;
                 }
             }
 
             return 'cell row_' + item.row + ' col_' + item.col + ' ' + span;
         },
         isview:function(){
+            if(spancount){
+                spancount--;
+                return false;
+            }else{
+                return true;
+            }
+            /*
             if(viewflag){
                 return true;
             }
             //this.view = true;
             viewflag = true;
-            return false;
+            return false;*/
         },
         inputdata: function (id) {
             console.log(this);
