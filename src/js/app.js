@@ -5,7 +5,6 @@ var viewflag = true;
 var spancount = 0;
 
 for(i in SetThemeData){
-
     celldata[SetThemeData[i].id] = SetThemeData[i].value;
     if (SetThemeData[i].type == "select") {
         optiondata[SetThemeData[i].id] = {}
@@ -15,10 +14,10 @@ for(i in SetThemeData){
 var ap = new Vue({
     el: "#app",
     data: {
-        row: 40,
+        row: 30,
         col: 16,
         showcellno:false,
-        tab: 5,
+        tab: 1,
         view: true,
         cell: celldata,
         equip: equipjson,
@@ -29,11 +28,14 @@ var ap = new Vue({
             var tbl = [];
             for (r = 0; r < this.row; r++) {
                 for (c = 0; c < this.col; c++) {
+                    var item = this.getclassData(r,c);
+                    var tab = 1;
+                    if(item){tab = item.tab;}
                     tbl.push({
                         "row": r,
                         "col": c,
-                        "tab":1,
-                        "item": this.getclassData(r,c)
+                        "tab":tab,
+                        "item": item
                     });
                 }
             }
@@ -60,7 +62,7 @@ var ap = new Vue({
         cellclass: function (item) {
             var span = "";
             if (item.item) {
-                if (item.item.span > 0) {
+                if (this.tab == item.tab && item.item.span > 0) {
                     span = "span_" + item.item.span;
                     viewflag = false;
                     spancount = item.item.span - 1;
@@ -76,13 +78,7 @@ var ap = new Vue({
             }else{
                 return true;
             }
-            /*
-            if(viewflag){
-                return true;
-            }
-            //this.view = true;
-            viewflag = true;
-            return false;*/
+
         },
         inputdata: function (id) {
             console.log(this);
@@ -90,7 +86,9 @@ var ap = new Vue({
 
         cellid: function (item) {
             if(item){
-                return item.id;
+                if(this.tab == item.tab){
+                    return item.id;
+                }
             }
             return "";
 
@@ -116,7 +114,7 @@ var ap = new Vue({
             return ret[0];
         },
         celltype: function (item) {
-            if(item){
+            if(item && this.tab == item.tab){
                 var data = this.gecellbyid(item.id);
                 if (data) {
                     return data.type;
@@ -146,7 +144,9 @@ var ap = new Vue({
     watch: {
         cell: {
             handler: function (val) {
+     
                 uiupdate();
+       
             },
             deep: true,
         }
@@ -186,8 +186,7 @@ function uiupdate() {
 
     update_equip();
 
-
+    calcAC();
     calcHPMP();
 }
-
 

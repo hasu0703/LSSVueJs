@@ -102,6 +102,7 @@ const CLASSST = {
         "MB":0,
         "HP":11,
         "MP":10,
+        "AC":6,
     },
     "K":{
         "D_SHORT":10,
@@ -117,6 +118,7 @@ const CLASSST = {
         "MB":0,
         "HP":16,
         "MP":0,
+        "AC":6,
     },
     "E":{
         "D_SHORT":30,
@@ -132,6 +134,7 @@ const CLASSST = {
         "MB":0,
         "HP":9,
         "MP":25,
+        "AC":7,
     },
     "W":{
         "D_SHORT":40,
@@ -147,6 +150,7 @@ const CLASSST = {
         "MB":1,
         "HP":6,
         "MP":15,
+        "AC":8,
     },
     "D":{
         "D_SHORT":10,
@@ -162,6 +166,7 @@ const CLASSST = {
         "MB":0,
         "HP":10,
         "MP":10,
+        "AC":6,
     },
     "R":{
         "D_SHORT":10,
@@ -177,6 +182,7 @@ const CLASSST = {
         "MB":0,
         "HP":12,
         "MP":18,
+        "AC":6,
     },
     "I":{
         "D_SHORT":10,
@@ -192,6 +198,7 @@ const CLASSST = {
         "MB":1,
         "HP":8,
         "MP":20,
+        "AC":8,
     },
     "F":{
         "D_SHORT":10,
@@ -207,5 +214,6 @@ const CLASSST = {
         "MB":0,
         "HP":16,
         "MP":0,
+        "AC":6,
     }
 }

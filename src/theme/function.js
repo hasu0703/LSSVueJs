@@ -325,6 +325,7 @@ function arraycount(){
  * データを更新
  */
 function update_equip(){
+    var enchant_sum =0;
     for(var i in EQ_LIST){
 
         var data = ap.equip[EQ_LIST[i]].filter(function (data) {
@@ -344,8 +345,6 @@ function update_equip(){
         }
 
         update_option("equip_name"+i,ret);
-
-
         var eq_data =  ap.equip[EQ_LIST[i]].filter(function (d) { 
 
             return d["name"] == this.itemname; 
@@ -354,22 +353,62 @@ function update_equip(){
         });
         if(eq_data[0]){
             
-/*
-            if(ap.cell["equip_enchant"+i] == null && parseInt(eq_data[0]["安全"]) > 0){         
-                ap.cell["equip_enchant"+i] = parseInt(eq_data[0]["安全"]);
-            }*/
+
             update_option("equip_enchant"+i, [...Array(parseInt(eq_data[0]["強化限界"])).keys()]);
             var AC = "";
             if(eq_data[0].AC){
                 AC = parseInt(eq_data[0].AC);
                 if(ACCESSORY_LIST.indexOf(eq_data[0].type)==-1){
                     AC -= parseInt(ap.cell["equip_enchant"+i]);
+                    enchant_sum -= parseInt(ap.cell["equip_enchant"+i]);
                 }
 
             }
             ap.cell["equip_ac"+i] = AC;
+  
         }
-        
-   //     console.log(eq_data[0]["安全"]);
     }
+    ap.cell["enchant_sum"] = enchant_sum;
+}
+
+/**
+ * 装備パラメータ合計値算出
+ * @param {*} key 
+ * @return int 合計値
+ */
+function eq_sum(key){
+    var sum = 0;
+    if(key){
+        for(var i in EQ_LIST){
+            var eq = ap.equip[EQ_LIST[i]].filter(function (d) { 
+                return d["name"] == this.itemname; 
+            }, {
+                "itemname": ap.cell["equip_name"+i],
+            });
+            if(eq[0]){
+
+
+                if(eq[0][key])sum += parseInt(eq[0][key]);
+            }
+        }
+    }
+
+    return sum;
+}
+
+/**
+ * AC合計計算
+ */
+function calcAC(){
+    var ac = 10;
+    var level = parseInt(ap.cell["level"]);
+    var dex   = parseInt(ap.cell["sum_dex"]);
+    var jobac = CLASSST[ap.cell["job"]]["AC"];
+    ac -= Math.floor(dex / 3);
+    ac -= Math.floor(level / jobac);
+    //ac -= buffsum("ac");
+    ac += eq_sum("AC");
+    ac += parseInt(ap.cell["enchant_sum"]);
+    ap.cell["st_ac"] = ac;
+
 }

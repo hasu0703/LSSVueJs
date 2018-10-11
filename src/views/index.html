@@ -12,35 +12,33 @@
   <script src="../theme/function.js"></script>
   <title>Document</title>
 </head>
+
 <body>
-  <div id="app" :style="gridStyle()">
-<template v-for="item in tableset()">
-<div :id="cellid(item.item)" v-if="isview()" :class="cellclass(item)">
-<span :id="cellid(item.item) + '_text'" v-if="celltype(item.item)=='text'">{{celltext(item.item)}}</span>
-<span :id="cellid(item.item) + '_hidden'" v-if="celltype(item.item)=='hidden'" class="hidden">{{celltext(item.item)}}</span>
-<select :id="cellid(item.item) + '_select'" v-if="celltype(item.item)=='select'" v-model="cell[cellid(item.item)]">
-<option v-for="(key,val) in celloption(item.item)" :value="val">{{key}}</option>
-</select>
-<span v-show="showcellno">{{item.row}}-{{item.col}}</span>
-</div>
-</template>  
-
-
-   
+  <div id="app" >
+    <div v-for="t in [0,1]" :id="'tab' + t" v-show="t == tab" :style="gridStyle()">
+      <template v-for="item in tableset()">
+        <div :id="cellid(item.item)" v-if="isview()" :class="cellclass(item)">
+          <span :id="cellid(item.item) + '_text'" v-if="celltype(item.item)=='text'" >{{celltext(item.item)}}</span>
+          <span :id="cellid(item.item) + '_hidden'" v-if="celltype(item.item)=='hidden'" class="hidden" >{{celltext(item.item)}}</span>
+          <select :id="cellid(item.item) + '_select'" v-if="celltype(item.item)=='select'" v-model="cell[cellid(item.item)]">
+            <option v-for="(key,val) in celloption(item.item)" :value="val">{{key}}</option>
+          </select>
+          <span v-show="showcellno">{{item.tab}}--{{item.row}}-{{item.col}}</span>
+        </div>
+      </template>
+    </div>
   </div>
   <div id="main">
   </div>
   <script>
     var is_test = true;
   </script>
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="../js/equip.js"></script>
-  
+
   <script src="../js/app.js"></script>
 
 </body>
