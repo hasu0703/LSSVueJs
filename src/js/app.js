@@ -187,6 +187,8 @@ function uiupdate() {
     update_equip();
 
     calcAC();
+    calcMR();
+    calcER();
     calcHPMP();
 }
 

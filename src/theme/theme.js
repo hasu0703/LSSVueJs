@@ -14,7 +14,7 @@ var SetLevelData = [
 ];
 SetThemeData = SetThemeData.concat(SetLevelData);
 r=1;
-c=5;
+c=4;
 var SetStatusData = [
     {"tab":1,"row":r,"col":c+1,"id":"str_title","type":"text","value":"str"},
     {"tab":1,"row":r,"col":c+2,"id":"dex_title","type":"text","value":"dex"},
@@ -60,7 +60,7 @@ var SetStatusData = [
 ]
 SetThemeData = SetThemeData.concat(SetStatusData);
 r=1;
-c=13;
+c=12;
 var SetHPMPData = [
     {"tab":1,"row":r,"col":c,"id":"hp_title","type":"text","value":"HP"},
     {"tab":1,"row":r,"col":c+1,"id":"st_hp","type":"text","value":0},
@@ -68,6 +68,17 @@ var SetHPMPData = [
     {"tab":1,"row":r+1,"col":c+1,"id":"st_mp","type":"text","value":0},
     {"tab":1,"row":r+2,"col":c,"id":"ac_title","type":"text","value":"AC"},
     {"tab":1,"row":r+2,"col":c+1,"id":"st_ac","type":"text","value":10},
+    {"tab":1,"row":r+3,"col":c,"id":"mr_title","type":"text","value":"MR"},
+    {"tab":1,"row":r+3,"col":c+1,"id":"st_mr","type":"text","value":0},
+    {"tab":1,"row":r+4,"col":c,"id":"er_title","type":"text","value":"ER"},
+    {"tab":1,"row":r+4,"col":c+1,"id":"st_er","type":"text","value":0},
+
+    {"tab":1,"row":r,"col":c+2,"id":"shit_title","type":"text","value":"近命中"},
+    {"tab":1,"row":r,"col":c+3,"id":"st_shit","type":"text","value":0},
+    {"tab":1,"row":r+1,"col":c+2,"id":"sdmg_title","type":"text","value":"近打撃"},
+    {"tab":1,"row":r+1,"col":c+3,"id":"st_sdmg","type":"text","value":0},
+    {"tab":1,"row":r+2,"col":c+2,"id":"scri_title","type":"text","value":"近クリ"},
+    {"tab":1,"row":r+2,"col":c+3,"id":"st_scri","type":"text","value":0},
 ];
 SetThemeData = SetThemeData.concat(SetHPMPData);
 r = 8;
@@ -87,8 +98,4 @@ for(var i in EQ_LIST){
     SetThemeData.push({"tab":1,"row":row,"col":c2+c+3,"id":"equip_name"+i,"type":"select","span":4});
     SetThemeData.push({"tab":0,"row":row,"col":c2+c+7,"id":"equip_ac"+i,"type":"text","value":""});
 }
-/*
-for(var i = 9;i<=17;i++){
-    SetThemeData.push({"tab":1,"row":i,"col":0,"id":"eq_weapon_title"+(i-9),"type":"text","value":"武器"});
-    SetThemeData.push({"tab":1,"row":i,"col":1,"id":"eq_weapon_name"+(i-9),"type":"select","span":2});
-}*/
+

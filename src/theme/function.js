@@ -380,20 +380,57 @@ function eq_sum(key){
     var sum = 0;
     if(key){
         for(var i in EQ_LIST){
+            var enchant = parseInt(ap.cell["equip_enchant"+i]);
             var eq = ap.equip[EQ_LIST[i]].filter(function (d) { 
                 return d["name"] == this.itemname; 
             }, {
                 "itemname": ap.cell["equip_name"+i],
             });
             if(eq[0]){
-
-
                 if(eq[0][key])sum += parseInt(eq[0][key]);
+
             }
+        }
+    }
+    return sum;
+}
+
+/**
+ * 装備パラメータ合計値（MR強化）
+ */
+function eq_summr(){
+    var sum = 0;
+    for(var i in EQ_LIST){
+        var enchant = parseInt(ap.cell["equip_enchant"+i]);
+        var eq = ap.equip[EQ_LIST[i]].filter(function (d) { 
+            return d["name"] == this.itemname; 
+        }, {
+            "itemname": ap.cell["equip_name"+i],
+        });
+        if(eq[0]){
+
+            if(eq[0]["MR強化"])sum += parseInt(eq[0]["MR強化"])*enchant;
         }
     }
 
     return sum;
+}
+
+/**
+ * ER合計計算
+ */
+function calcER(){
+    var er = 0;
+    var level = parseInt(ap.cell["level"]);
+    var dex   = parseInt(ap.cell["sum_dex"]);
+    var jober = CLASSST[ap.cell["job"]]["ER"];
+    
+    er += Math.floor(dex / 2);
+    er += Math.floor(level / jober);
+
+    er += eq_sum("ER");
+    ap.cell["st_er"] = er;
+
 }
 
 /**
@@ -410,5 +447,23 @@ function calcAC(){
     ac += eq_sum("AC");
     ac += parseInt(ap.cell["enchant_sum"]);
     ap.cell["st_ac"] = ac;
+
+}
+
+/**
+ * MR計算
+ */
+function calcMR(){
+    var MR = 0;
+    var level = parseInt(ap.cell["level"]);
+    var wis   = parseInt(ap.cell["sum_dex"]);
+    var jobmr = CLASSST[ap.cell["job"]]["MR"];
+    MR += minasToZero(wis - 10) * 4;
+    MR += Math.floor(level / 2);
+    MR += parseInt(jobmr);
+  //  MR += buffsum("mc");
+    MR += eq_sum("MR");
+    MR += eq_summr();
+    ap.cell["st_mr"] = MR;
 
 }
