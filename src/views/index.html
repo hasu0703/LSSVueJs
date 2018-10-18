@@ -14,12 +14,16 @@
 </head>
 
 <body>
-  <div id="app" >
-    <div v-for="t in [0,1]" :id="'tab' + t" v-show="t == tab" :style="gridStyle()">
+  <div id="app">
+    <ul id="tabmenu">
+      <li v-for="(k,v) in tabmenu" :class="{active:(v+1)==tab}" @click="tab = (v+1)">{{k}}</li>
+    </ul>
+
+    <div id="tab" :style="gridStyle()">
       <template v-for="item in tableset()">
         <div :id="cellid(item.item)" v-if="isview()" :class="cellclass(item)">
-          <span :id="cellid(item.item) + '_text'" v-if="celltype(item.item)=='text'" >{{celltext(item.item)}}</span>
-          <span :id="cellid(item.item) + '_hidden'" v-if="celltype(item.item)=='hidden'" class="hidden" >{{celltext(item.item)}}</span>
+          <span :id="cellid(item.item) + '_text'" v-if="celltype(item.item)=='text'">{{celltext(item.item)}}</span>
+          <span :id="cellid(item.item) + '_hidden'" v-if="celltype(item.item)=='hidden'" class="hidden">{{celltext(item.item)}}</span>
           <select :id="cellid(item.item) + '_select'" v-if="celltype(item.item)=='select'" v-model="cell[cellid(item.item)]">
             <option v-for="(key,val) in celloption(item.item)" :value="val">{{key}}</option>
           </select>

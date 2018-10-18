@@ -18,6 +18,7 @@ var ap = new Vue({
         col: 16,
         showcellno:false,
         tab: 1,
+        tabmenu:["装備","ステータス","バフ"],
         view: true,
         cell: celldata,
         equip: equipjson,
@@ -28,8 +29,9 @@ var ap = new Vue({
             var tbl = [];
             for (r = 0; r < this.row; r++) {
                 for (c = 0; c < this.col; c++) {
-                    var item = this.getclassData(r,c);
-                    var tab = 1;
+                    
+                    var tab = this.tab;
+                    var item = this.getclassData(r,c,tab);
                     if(item){tab = item.tab;}
                     tbl.push({
                         "row": r,
@@ -39,6 +41,7 @@ var ap = new Vue({
                     });
                 }
             }
+
             return tbl;
         },
         gridStyle: function () {
@@ -48,21 +51,28 @@ var ap = new Vue({
                 "grid-template-rows": "repeat(" + this.row + ",20px)"
             }
         },
-        getclassData: function (r, c) {
+        getclassData: function (r, c,t) {
             var ret = SetThemeData.filter(function (data) {
-                return data.row == this.row && data.col == this.col
+                return data.row == this.row && data.col == this.col &&(this.tab == data.tab || data.tab == 99)
             }, {
                 "col": c,
-                "row": r
+                "row": r,
+                "tab": t
             });
             if (ret[0]) {
                 return ret[0];
             }
         },
+        istab:function(item){
+ 
+            if(this.tab == item.tab){return true;}
+            if(99 == item.tab){return true;}
+            return false;
+        },
         cellclass: function (item) {
             var span = "";
             if (item.item) {
-                if (this.tab == item.tab && item.item.span > 0) {
+                if (this.istab(item) && item.item.span > 0) {
                     span = "span_" + item.item.span;
                     viewflag = false;
                     spancount = item.item.span - 1;
@@ -86,7 +96,7 @@ var ap = new Vue({
 
         cellid: function (item) {
             if(item){
-                if(this.tab == item.tab){
+                if(this.istab(item) ){
                     return item.id;
                 }
             }
@@ -114,7 +124,7 @@ var ap = new Vue({
             return ret[0];
         },
         celltype: function (item) {
-            if(item && this.tab == item.tab){
+            if(item && this.istab(item) ){
                 var data = this.gecellbyid(item.id);
                 if (data) {
                     return data.type;
