@@ -191,7 +191,7 @@ function uiupdate() {
     update_status_elixir(STATUSLIST);
 
     update_status_sum(STATUSLIST);
-    console.log("change");
+   
 
 
     update_equip();
@@ -200,5 +200,10 @@ function uiupdate() {
     calcMR();
     calcER();
     calcHPMP();
+    calcShort();
+    calcLong();
+    calcMagic();
+    
+    console.log("change");
 }
 

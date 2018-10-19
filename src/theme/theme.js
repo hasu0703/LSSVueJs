@@ -51,13 +51,20 @@ TempData = [
     {"tab":99,"row":r+4,"col":c+4,"id":"eli_int","type":"select","value":0},
     {"tab":99,"row":r+4,"col":c+5,"id":"eli_wis","type":"select","value":0},
     {"tab":99,"row":r+4,"col":c+6,"id":"eli_cha","type":"select","value":0},
-    {"tab":99,"row":r+5,"col":c,"id":"sum_title","type":"text","value":"合計"},
+    {"tab":99,"row":r+5,"col":c,"id":"sum_title","type":"text","value":"基本合計"},
     {"tab":99,"row":r+5,"col":c+1,"id":"sum_str","type":"text","value":0},
     {"tab":99,"row":r+5,"col":c+2,"id":"sum_dex","type":"text","value":0},
     {"tab":99,"row":r+5,"col":c+3,"id":"sum_con","type":"text","value":0},
     {"tab":99,"row":r+5,"col":c+4,"id":"sum_int","type":"text","value":0},
     {"tab":99,"row":r+5,"col":c+5,"id":"sum_wis","type":"text","value":0},
     {"tab":99,"row":r+5,"col":c+6,"id":"sum_cha","type":"text","value":0},
+    {"tab":99,"row":r+6,"col":c,"id":"all_title","type":"text","value":"全合計"},
+    {"tab":99,"row":r+6,"col":c+1,"id":"all_str","type":"text","value":0},
+    {"tab":99,"row":r+6,"col":c+2,"id":"all_dex","type":"text","value":0},
+    {"tab":99,"row":r+6,"col":c+3,"id":"all_con","type":"text","value":0},
+    {"tab":99,"row":r+6,"col":c+4,"id":"all_int","type":"text","value":0},
+    {"tab":99,"row":r+6,"col":c+5,"id":"all_wis","type":"text","value":0},
+    {"tab":99,"row":r+6,"col":c+6,"id":"all_cha","type":"text","value":0},
 ]
 SetThemeData = SetThemeData.concat(TempData);
 r=1;
@@ -97,7 +104,7 @@ for(var i in EQ_LIST){
 
 //Tab2
 var c = 0;
-var r = 8
+var r = 9
 TempData = [
     {"tab":2,"row":r,"col":c,"id":"str_status_title","type":"text","value":"STR","span":3},
     {"tab":2,"row":r+1,"col":c,"id":"str_shit_title","type":"text","value":"近接命中","span":2},
@@ -129,8 +136,8 @@ TempData = [
     {"tab":2,"row":r+1,"col":c,"id":"con_basehp_title","type":"text","value":"基本HP","span":2},
     {"tab":2,"row":r+1,"col":c+2,"id":"con_st_basehp","type":"text","value":0},
     {"tab":2,"row":r+2,"col":c,"id":"con_basehp_title","type":"text","value":"最終HP","span":2},
-    {"tab":2,"row":r+3,"col":c+2,"id":"con_st_hp","type":"text","value":0},
-    {"tab":2,"row":r+4,"col":c,"id":"con_hpr_title","type":"text","value":"HPR","span":2},
+    {"tab":2,"row":r+2,"col":c+2,"id":"con_st_hp","type":"text","value":0},
+    {"tab":2,"row":r+3,"col":c,"id":"con_hpr_title","type":"text","value":"HPR","span":2},
     {"tab":2,"row":r+3,"col":c+2,"id":"con_st_hpr","type":"text","value":0},
     {"tab":2,"row":r+4,"col":c,"id":"con_pot_title","type":"text","value":"POT回復量","span":2},
     {"tab":2,"row":r+4,"col":c+2,"id":"con_st_pot","type":"text","value":0},

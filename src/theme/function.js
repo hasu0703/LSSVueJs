@@ -209,6 +209,10 @@ function update_status_sum(keys) {
         point += parseInt(ap.cell["eli_" + key]);
 
         ap.cell["sum_" + key] = point;
+
+        point += eq_sum(key.toUpperCase());
+        point += buffsum(key.toUpperCase());
+        ap.cell["all_" + key] = point;
     }
 }
 
@@ -456,7 +460,7 @@ function calcAC(){
 function calcMR(){
     var MR = 0;
     var level = parseInt(ap.cell["level"]);
-    var wis   = parseInt(ap.cell["sum_dex"]);
+    var wis   = parseInt(ap.cell["sum_wis"]);
     var jobmr = CLASSST[ap.cell["job"]]["MR"];
     MR += minasToZero(wis - 10) * 4;
     MR += Math.floor(level / 2);
@@ -466,4 +470,139 @@ function calcMR(){
     MR += eq_summr();
     ap.cell["st_mr"] = MR;
 
+}
+
+/**
+ * 近接計算
+ */
+function calcShort(){
+    var HIT = 0;
+    var DMG = 0;
+    var CRI = 0;
+    var level = parseInt(ap.cell["level"]);
+    var str   = parseInt(ap.cell["all_str"]);
+    var pure_str = parseInt(ap.cell["sum_str"]);
+    DMG += Math.floor(str / 2 - 2);
+    DMG += Math.floor(level / parseInt(CLASSST[ap.cell["job"]]["D_SHORT"]));
+    DMG += eq_sum("追加打撃");
+
+    HIT += Math.floor(str*2 / 3);
+    HIT += level;
+    HIT += Math.floor(level / parseInt(CLASSST[ap.cell["job"]]["H_SHORT"]));
+    HIT += eq_sum("攻撃成功");
+
+    CRI += Math.floor(minasToZero(str - 30) / 10);
+    CRI += Math.floor(minasToZero(level - 50) /  parseInt(CLASSST[ap.cell["job"]]["C_SHORT"]) );
+    CRI += eq_sum("近距離クリティカル");
+
+    if (pure_str >= 25) {
+        DMG += 1;
+        HIT += 1;
+    }
+    if (pure_str >= 35) {
+        DMG += 1;
+        HIT += 1;
+    }
+    if (pure_str >= 45) {
+        DMG += 3;
+        HIT += 3;
+        CRI += 1;
+    }
+
+    ap.cell["str_st_shit"] = HIT;
+    ap.cell["str_st_sdmg"] = DMG;
+    ap.cell["str_st_scri"] = CRI;
+}
+
+/**
+ * 遠距離計算
+ */
+function calcLong(){
+    var HIT = 0;
+    var DMG = 0;
+    var CRI = 0;
+    var level = parseInt(ap.cell["level"]);
+    var dex   = parseInt(ap.cell["all_dex"]);
+    var pure_dex = parseInt(ap.cell["sum_dex"]);
+    DMG += Math.floor(dex / 3);
+    DMG += Math.floor(level / parseInt(CLASSST[ap.cell["job"]]["D_LONG"]));
+    DMG += eq_sum("弓打撃値");
+
+    HIT += Math.floor(dex - 10);
+    HIT += level;
+    HIT += Math.floor(level / parseInt(CLASSST[ap.cell["job"]]["H_LONG"]));
+    HIT += eq_sum("弓命中率");
+
+    CRI += Math.floor(minasToZero(dex - 30) / 10);
+    CRI += Math.floor(minasToZero(level - 50) /  parseInt(CLASSST[ap.cell["job"]]["C_LONG"]) );
+    CRI += eq_sum("遠距離クリティカル");
+
+
+    if (pure_dex >= 25) {
+        DMG += 1;
+        HIT += 1;
+    }
+    if (pure_dex >= 35) {
+        DMG += 1;
+        HIT += 1;
+    }
+    if (pure_dex >= 45) {
+        DMG += 3;
+        HIT += 3;
+        CRI += 1;
+    }
+
+    ap.cell["dex_st_lhit"] = HIT;
+    ap.cell["dex_st_ldmg"] = DMG;
+    ap.cell["dex_st_lcri"] = CRI;
+}
+
+/**
+ * 魔法計算
+ */
+function calcMagic(){
+    var HIT = 0;
+    var DMG = 0;
+    var CRI = 0;
+    var red_mp = 0;
+    var level = parseInt(ap.cell["level"]);
+    var int   = parseInt(ap.cell["all_int"]);
+    var pure_int = parseInt(ap.cell["sum_int"]);
+    DMG += Math.floor(int / 5 - 2);
+    DMG += Math.floor(level / parseInt(CLASSST[ap.cell["job"]]["D_MAGIC"]));
+    //DMG += eq_sum("魔法打撃値");
+
+    HIT += Math.floor((int - 20) /3);
+    HIT += Math.floor(level / parseInt(CLASSST[ap.cell["job"]]["H_MAGIC"]));
+    HIT += eq_sum("魔法命中");
+
+    CRI += Math.floor(minasToZero(int - 30) / 10);
+    CRI += Math.floor(minasToZero(level - 50) /  parseInt(CLASSST[ap.cell["job"]]["C_MAGIC"]) );
+    CRI += eq_sum("魔法クリティカル");
+
+    red_mp = Math.min(30, (int * 2 / 3));
+
+        if (pure_int >= 25) {
+            DMG += 1;
+            history += 1;
+        }
+        if (pure_int >= 35) {
+            DMG += 1;
+            HIT += 1;
+        }
+        if (pure_int >= 45) {
+            DMG += 3;
+            HIT += 3;
+        }
+
+    ap.cell["int_st_mhit"] = HIT;
+    ap.cell["int_st_mdmg"] = DMG;
+    ap.cell["int_st_mcri"] = CRI;
+}
+
+/**
+ * バフ計算(未実装)
+ */
+function buffsum(key){
+    return 0;
 }
