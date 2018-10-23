@@ -173,3 +173,9 @@ TempData = [
     {"tab":2,"row":r+4,"col":c+2,"id":"wis_st_mr","type":"text","value":0},
 ];
 SetThemeData = SetThemeData.concat(TempData);
+
+TempData = [
+    {"tab":3,"row":r+4,"col":c+2,"id":"test1","type":"buttom","value":{str:3},group:"enchantstr"},
+    {"tab":3,"row":r+5,"col":c+2,"id":"test2","type":"buttom","value":{str:5},group:"enchantstr"},
+]
+SetThemeData = SetThemeData.concat(TempData);
