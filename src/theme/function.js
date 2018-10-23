@@ -219,6 +219,8 @@ function update_status_sum(keys) {
 function calcHPMP() {
     var hp = 0;
     var mp = 0;
+    var sum_hp = 0;
+    var sum_mp = 0;
     var con = parseInt(ap.cell["base_con"]) + parseInt(ap.cell["rem_con"]);
     var wis = parseInt(ap.cell["base_wis"]) + parseInt(ap.cell["rem_wis"]);
 
@@ -305,10 +307,22 @@ function calcHPMP() {
         mp += 150;
     }
 
+    hp = Math.floor(hp);
+    mp = Math.floor(mp);
+    sum_hp = hp;
+    sum_mp = mp;
+    ap.cell["con_st_basehp"] = hp;
+    ap.cell["wis_st_basemp"] = mp;
+
+    sum_hp += buffsum("HP");
+    sum_hp += eq_sum("HP");
+    sum_mp += buffsum("MP");
+    sum_mp += eq_sum("MP");
+
+    ap.cell["st_hp"] = sum_hp;
+    ap.cell["st_mp"] = sum_mp;
 
 
-    ap.cell["st_hp"] = Math.floor(hp);
-    ap.cell["st_mp"] = Math.floor(mp);
 }
 /**
  * マイナスの値は０を返す
@@ -465,11 +479,11 @@ function calcMR(){
     MR += minasToZero(wis - 10) * 4;
     MR += Math.floor(level / 2);
     MR += parseInt(jobmr);
-  //  MR += buffsum("mc");
+    MR += buffsum("mc");
     MR += eq_sum("MR");
     MR += eq_summr();
     ap.cell["st_mr"] = MR;
-
+    ap.cell["wis_st_mr"] = MR;
 }
 
 /**
@@ -595,9 +609,17 @@ function calcMagic(){
             HIT += 3;
         }
 
+    //MP消費軽減
+    var MPRATE = 0;
+    for(var i=1;i<=int;i++){
+        if(i%3 != 1){MPRATE++;}
+    }
+    MPRATE = Math.min(30,MPRATE);
+
     ap.cell["int_st_mhit"] = HIT;
     ap.cell["int_st_mdmg"] = DMG;
     ap.cell["int_st_mcri"] = CRI;
+    ap.cell["int_st_mprate"] = MPRATE + "%";
 }
 
 /**

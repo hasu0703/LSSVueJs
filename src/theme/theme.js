@@ -164,7 +164,7 @@ c=12;
 TempData = [
     {"tab":2,"row":r,"col":c,"id":"wis_status_title","type":"text","value":"WIS","span":3},
     {"tab":2,"row":r+1,"col":c,"id":"wis_basemp_title","type":"text","value":"基本MP","span":2},
-    {"tab":2,"row":r+1,"col":c+2,"id":"wis_st_mp","type":"text","value":0},
+    {"tab":2,"row":r+1,"col":c+2,"id":"wis_st_basemp","type":"text","value":0},
     {"tab":2,"row":r+2,"col":c,"id":"wis_mp_title","type":"text","value":"最終MP","span":2},
     {"tab":2,"row":r+2,"col":c+2,"id":"wis_st_mp","type":"text","value":0},
     {"tab":2,"row":r+3,"col":c,"id":"wis_mpr_title","type":"text","value":"MPR","span":2},
@@ -174,8 +174,11 @@ TempData = [
 ];
 SetThemeData = SetThemeData.concat(TempData);
 
+r = 9
+c=0;
+
 TempData = [
-    {"tab":3,"row":r+4,"col":c+2,"id":"test1","type":"buttom","value":{str:3},group:"enchantstr"},
-    {"tab":3,"row":r+5,"col":c+2,"id":"test2","type":"buttom","value":{str:5},group:"enchantstr"},
+    {"tab":3,"row":r,"col":c,"id":"test1","type":"button","value":{name:"ドレスマイティー",str:3},group:"enchantstr",span:2},
+    {"tab":3,"row":r+1,"col":c,"id":"test2","type":"button","value":{name:"PE:STR",str:5},group:"enchantstr",span:2},
 ]
 SetThemeData = SetThemeData.concat(TempData);

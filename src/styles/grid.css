@@ -26,9 +26,17 @@ body{
 }
 .tab{
     display:grid;
-
-
 }
+.cellbutton{
+    display:inline-block;
+    width: 100%;
+    height: 100%;
+    font-size:0.8em;
+}
+
+#app [v-cloak] {
+    display: none;
+  }
 
 .hidden{
     display:none;

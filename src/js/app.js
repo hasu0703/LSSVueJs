@@ -18,7 +18,7 @@ var ap = new Vue({
         col: 16,
         showcellno:false,
         tab: 1,
-        tabmenu:["装備","ステータス","バフ"],
+        tabmenu:TABMENU,
         view: true,
         cell: celldata,
         equip: equipjson,
@@ -110,6 +110,10 @@ var ap = new Vue({
                     if(data.type == "text"){
                         return this.cell[data.id];
                     }
+                    if(data.type == "button"){
+                        console.log(data);
+                        return this.cell[data.id].name;
+                    }
                 }
             }
             return "";
@@ -144,6 +148,9 @@ var ap = new Vue({
                     }
                 }
             }
+
+        },
+        buffbtn:function(item){
 
         }
 
