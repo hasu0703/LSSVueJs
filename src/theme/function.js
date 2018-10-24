@@ -319,8 +319,23 @@ function calcHPMP() {
     sum_mp += buffsum("MP");
     sum_mp += eq_sum("MP");
 
-    ap.cell["st_hp"] = sum_hp;
-    ap.cell["st_mp"] = sum_mp;
+    //割合増加処理
+    var MultiplicationHP = buffsum("PHP");
+    console.log(MultiplicationHP);
+    if(MultiplicationHP){
+        if(MultiplicationHP == 999){
+
+        }else{
+            sum_hp *= MultiplicationHP;
+        }
+    }
+    var MultiplicationMP = buffsum("PMP");
+    if(MultiplicationMP){
+        sum_mp *= MultiplicationMP;
+    }
+
+    ap.cell["st_hp"] = Math.floor(sum_hp);
+    ap.cell["st_mp"] = Math.floor(sum_mp);
 
 
 }
@@ -626,5 +641,16 @@ function calcMagic(){
  * バフ計算(未実装)
  */
 function buffsum(key){
-    return 0;
+    var val=0;
+    for(var i in ap.buffdata){
+        var buff = ap.buffdata[i];
+        if(buff.value){
+            if(buff["value"][key]){
+                val += parseFloat(buff["value"][key]);
+            }
+            
+        }
+    }
+
+    return val;
 }

@@ -27,7 +27,7 @@
           <select :id="cellid(item.item) + '_select'" v-if="celltype(item.item)=='select'" v-model="cell[cellid(item.item)]">
             <option v-for="(key,val) in celloption(item.item)" :value="val">{{key}}</option>
           </select>
-          <span :id="cellid(item.item) + '_button'" v-if="celltype(item.item)=='button'" class="cellbutton" @click="buffbtn(item.item)">{{celltext(item.item)}}</span>
+          <span :id="cellid(item.item) + '_button'" v-if="celltype(item.item)=='button'"  @click="buffbtn(item.item)" :class="{cellbutton:true,btnactive:buffdata[item.item.id]}">{{celltext(item.item)}}</span>
           <span v-show="showcellno">{{item.tab}}--{{item.row}}-{{item.col}}</span>
         </div>
       </template>

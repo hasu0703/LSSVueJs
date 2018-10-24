@@ -1,5 +1,6 @@
 var celldata = {};
 var optiondata = {};
+var buffdata = {};
 var _is = {}
 var viewflag = true;
 var spancount = 0;
@@ -14,7 +15,7 @@ for(i in SetThemeData){
 var ap = new Vue({
     el: "#app",
     data: {
-        row: 30,
+        row: 22,
         col: 16,
         showcellno:false,
         tab: 1,
@@ -22,7 +23,8 @@ var ap = new Vue({
         view: true,
         cell: celldata,
         equip: equipjson,
-        option: optiondata
+        option: optiondata,
+        buffdata:buffdata
     },
     methods: {
         tableset: function () {
@@ -48,7 +50,7 @@ var ap = new Vue({
             return {
                 "display":"grid",
                 "grid-template-columns": "repeat(" + this.col + ",60px)",
-                "grid-template-rows": "repeat(" + this.row + ",20px)"
+                "grid-template-rows": "repeat(" + this.row + ",25px)"
             }
         },
         getclassData: function (r, c,t) {
@@ -111,7 +113,7 @@ var ap = new Vue({
                         return this.cell[data.id];
                     }
                     if(data.type == "button"){
-                        console.log(data);
+
                         return this.cell[data.id].name;
                     }
                 }
@@ -151,8 +153,21 @@ var ap = new Vue({
 
         },
         buffbtn:function(item){
+            var key = item.id;
+            if(this.buffdata[key]){
+                this.buffdata[key] = "";
+            }else{
+                for(i in this.buffdata){
+                    if(this.buffdata[i].group == item.group){
+                        this.buffdata[i] = "";
+                    }
+                }
+                this.buffdata[key] = item;
+            }
+            uiupdate();
+        },
 
-        }
+
 
     },
     computed: {

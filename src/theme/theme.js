@@ -178,7 +178,9 @@ r = 9
 c=0;
 
 TempData = [
-    {"tab":3,"row":r,"col":c,"id":"test1","type":"button","value":{name:"ドレスマイティー",str:3},group:"enchantstr",span:2},
-    {"tab":3,"row":r+1,"col":c,"id":"test2","type":"button","value":{name:"PE:STR",str:5},group:"enchantstr",span:2},
+    {"tab":3,"row":r,"col":c,"id":"dstr","type":"button","value":{name:"ドレスマイティー",STR:3},group:"enchantstr",span:2},
+    {"tab":3,"row":r+1,"col":c,"id":"pestr","type":"button","value":{name:"PE:STR",STR:5},group:"enchantstr",span:2},
+    {"tab":3,"row":r+2,"col":c,"id":"pedex","type":"button","value":{name:"PE:DEX",DEX:5},group:"enchantdex",span:2},
+    {"tab":3,"row":r,"col":c+2,"id":"adsp","type":"button","value":{name:"ADSP",PHP:1.2,PMP:1.2},group:"ProportionHPMP",span:2},
 ]
 SetThemeData = SetThemeData.concat(TempData);
