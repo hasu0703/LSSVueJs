@@ -155,18 +155,26 @@ var ap = new Vue({
         buffbtn:function(item){
             var key = item.id;
             if(this.buffdata[key]){
-                this.buffdata[key] = "";
+                delete  this.buffdata[key];
             }else{
                 for(i in this.buffdata){
-                    if(this.buffdata[i].group == item.group){
-                        this.buffdata[i] = "";
+                    console.log()
+                    if(this.buffdata[i].value.group == item.value.group){
+                        delete  this.buffdata[i];
                     }
                 }
                 this.buffdata[key] = item;
             }
             uiupdate();
         },
+        buffchange:function(item,_event){
+            var key = item.id;
+            var _item = item;
+            _item.idx = _event;
+            this.buffdata[key] = _item;
 
+            uiupdate();
+        }
 
 
     },
@@ -176,12 +184,11 @@ var ap = new Vue({
     watch: {
         cell: {
             handler: function (val) {
-     
-                uiupdate();
-       
+                uiupdate();       
             },
             deep: true,
-        }
+        },
+        
     }
 });
 

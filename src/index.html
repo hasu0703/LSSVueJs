@@ -28,7 +28,10 @@
             <option v-for="(key,val) in celloption(item.item)" :value="val">{{key}}</option>
           </select>
           <span :id="cellid(item.item) + '_button'" v-if="celltype(item.item)=='button'"  @click="buffbtn(item.item)" :class="{cellbutton:true,btnactive:buffdata[item.item.id]}">{{celltext(item.item)}}</span>
-          <span v-show="showcellno">{{item.tab}}--{{item.row}}-{{item.col}}</span>
+          <select :id="cellid(item.item) + '_buffselect'" v-if="celltype(item.item)=='buffselect'" @change="buffchange(item.item,$event.target.value)">   
+            <option v-for="(val,itemno) in item.item.value" :value="itemno">{{val.name}}</option>
+          </select>      
+          <span v-show="showcellno">{{item.item}}/{{item.tab}}--{{item.row}}-{{item.col}}</span>
         </div>
       </template>
     </div>

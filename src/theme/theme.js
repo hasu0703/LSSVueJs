@@ -176,11 +176,41 @@ SetThemeData = SetThemeData.concat(TempData);
 
 r = 9
 c=0;
+var buffjson = [
+    {id:"enac",name:"AC",option:true,AC:0,group:"enchantac"},
+    {name:"-2",AC:-2,group:"enchantac"},
+    {name:"-4",AC:-4,group:"enchantac"},
+    {name:"-5",AC:-5,group:"enchantac"},
+    {name:"-6",AC:-6,group:"enchantac"},
+    {name:"-8",AC:-8,group:"enchantac"},
+    {name:"-10",AC:-10,group:"enchantac"},
+    {id:"dstr",name:"ドレスマイティー",STR:3,group:"enchantstr"},
+    {id:"pestr",name:"PE:STR",STR:5,group:"enchantstr"},
+    {id:"pedex",name:"PE:DEX",DEX:5,group:"enchantdex"},
+    {id:"adsp",name:"ADSP",PHP:1.2,PMP:1.2,group:"ProportionHPMP"},
+];
 
-TempData = [
-    {"tab":3,"row":r,"col":c,"id":"dstr","type":"button","value":{name:"ドレスマイティー",STR:3},group:"enchantstr",span:2},
-    {"tab":3,"row":r+1,"col":c,"id":"pestr","type":"button","value":{name:"PE:STR",STR:5},group:"enchantstr",span:2},
-    {"tab":3,"row":r+2,"col":c,"id":"pedex","type":"button","value":{name:"PE:DEX",DEX:5},group:"enchantdex",span:2},
-    {"tab":3,"row":r,"col":c+2,"id":"adsp","type":"button","value":{name:"ADSP",PHP:1.2,PMP:1.2},group:"ProportionHPMP",span:2},
-]
-SetThemeData = SetThemeData.concat(TempData);
+var r_now = r;
+var c_now = c;
+
+for(var i in buffjson){
+    var buffdata = buffjson[i];
+    var type = "button";
+    var grp = "";
+
+    if(buffdata.id){
+        var buffid = buffdata.id;
+        if(buffdata.option){
+            type = "buffselect";
+            grp  = buffdata.group;
+            buffdata = buffjson.filter(x => x.group === grp);
+        }
+        SetThemeData.push( {"tab":3,"row":r_now,"col":c_now,"id":buffid,"type":type,"value":buffdata,span:2});
+        r_now++;
+        if(r_now > r+10){
+            r_now = r;
+            c_now += 2;
+        }
+    }
+
+}

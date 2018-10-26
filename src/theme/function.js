@@ -321,7 +321,7 @@ function calcHPMP() {
 
     //割合増加処理
     var MultiplicationHP = buffsum("PHP");
-    console.log(MultiplicationHP);
+
     if(MultiplicationHP){
         if(MultiplicationHP == 999){
 
@@ -644,9 +644,12 @@ function buffsum(key){
     var val=0;
     for(var i in ap.buffdata){
         var buff = ap.buffdata[i];
-        if(buff.value){
-            if(buff["value"][key]){
-                val += parseFloat(buff["value"][key]);
+        var _value = buff.value;
+        if(buff.idx){_value = _value[buff.idx]}
+        if(_value){
+
+            if(_value[key]){
+                val += parseFloat(_value[key]);
             }
             
         }
